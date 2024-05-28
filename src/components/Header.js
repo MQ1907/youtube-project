@@ -8,18 +8,12 @@ import { Image } from 'react-bootstrap';
 
 const Header = ({handleToggleSidebar}) => {
 const [input, setInput] = useState('')
-const [inputHistory, setInputHistory] = useState([])
+
 const [isFormFocused, setIsFormFocused] = useState(false)
 const navigate = useNavigate()
 const handleSubmit = (e) => {
   e.preventDefault()
   navigate(`/search/${input}`)
-  setInputHistory(prevHistory => {
-    // Loại bỏ giá trị trùng lặp
-    const newHistory = prevHistory.filter(item => item !== input)
-    // Thêm giá trị mới vào đầu mảng
-    return [input, ...newHistory].slice(0, 25) // Giới hạn lịch sử chỉ chứa tối đa 25 giá trị
-  })
 }
 const handleInputChange = (e) => {
   setInput(e.target.value)
@@ -158,29 +152,6 @@ const handleBlur = () => {
         />
       </div>
       {/* Hiển thị lịch sử input */}
-      {inputHistory.length > 0 && isFormFocused && (
-        <div className="absolute bg-[#222222] p-2 top-[75px] left-[540px] w-[571px] border-0 rounded-[10px] shadow">
-          <ul className="list-none p-0 m-0">
-            {inputHistory.map((item, index) => (
-              <div className="flex">
-                <Image
-                  className="w-[26px] h-[26px] text-white mt-[9px]"
-                  src={require("../assets/history.png")}
-                  alt="haha"
-                ></Image>
-                <li
-                  key={index}
-                  className="text-base cursor-pointer hover:bg-[#272727] p-2 text-white"
-                  onClick={() => setInput(item)}
-                >
-                  {item}
-                </li>
-              </div>
-            ))}
-          </ul>
-        </div>
-      )}
-      <div></div>
     </div>
   );
 }
