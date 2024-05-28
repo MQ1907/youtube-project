@@ -151,7 +151,6 @@ const handleBlur = () => {
           alt="ava"
         />
       </div>
-      {/* Hiển thị lịch sử input */}
     </div>
   );
 }
